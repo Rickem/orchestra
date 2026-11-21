@@ -7,7 +7,7 @@ Inspected: 2026-11-21, on Windows 10 with Claude Code 2.1.283. Sources: the loca
 | Upstream | Repository | Licence | Installed | Latest seen | Install method | Inventory |
 |---|---|---|---|---|---|---|
 | ECC | [affaan-m/ECC](https://github.com/affaan-m/ECC) (renamed from `everything-claude-code`) | MIT | 2.2.3 (`25278e7`) | v2.2.3, released 2026-10-01 | Claude Code plugin, `ecc` marketplace | 71 agents, 311 skills, 97 legacy commands, 27 hook groups, 23 rule sets |
-| gstack | [garrytan/gstack](https://github.com/garrytan/gstack) | MIT | 1.91.295.0 (`61e201e`, 2026-10-28) | v1.102.1.0, released 2026-11-20 | `git clone` into `~/.claude/skills/gstack`, then `./setup` | About 80 skills, a bundled browser, one Stop hook |
+| gstack | [garrytan/gstack](https://github.com/garrytan/gstack) | MIT | 1.102.1.0 (`6263e0e`, upgraded 2026-11-21 from 1.91.295.0) | v1.102.1.0, released 2026-11-20 | `git clone` into `~/.claude/skills/gstack`, then `./setup` | About 80 skills, a bundled browser, one Stop hook |
 | superpowers | [obra/superpowers](https://github.com/obra/superpowers) | MIT | 7.0.2 (`22f0b46`) | Not checked against upstream | Claude Code plugin, official marketplace | 15 skills, one SessionStart hook |
 | graphify | [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) | Apache-2.0 | 0.9.114 | 0.9.114 on PyPI | `pip install graphifyy`, `graphify install` | One skill, a CLI |
 
@@ -34,7 +34,7 @@ Inspected: 2026-11-21, on Windows 10 with Claude Code 2.1.283. Sources: the loca
 ## Not verified
 
 - gstack browser tooling was later exercised on this Windows 10 machine and worked (see `docs/VALIDATION_REPORT.md`).
-- The gstack upgrade to v1.102.1.0 was not applied; the manifest pins the installed 1.91.295.0.
+- gstack was upgraded to 1.102.1.0 after the route tests; those tests ran on 1.91.295.0 and were not repeated.
 - superpowers was not compared against its latest upstream release.
 - No upstream skill was run as part of this assessment. Every selected route except `land-and-deploy` was run live afterwards (see `docs/VALIDATION_REPORT.md`).
 

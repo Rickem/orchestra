@@ -25,8 +25,9 @@ Verify the exact plugin commands with `claude plugin --help` on your version bef
 
 ## Pending on the build machine
 
-- gstack: 1.91.295.0 installed, v1.102.1.0 available (2026-11-21). Not applied.
-- graphify: the `uv tool` copy on PATH is 0.9.7 and failed to upgrade because its files were in use. Close anything using it (for example a running `graphify-mcp`) and run `uv tool upgrade graphifyy`.
+- gstack: upgraded to 1.102.1.0 on 2026-11-21. Its setup could not rewrite `~/.claude/settings.json` while Claude Code sessions were open ("settings hook update failed"); the existing Stop hook still points at a valid file. With no session running, run `~/.claude/skills/gstack/bin/gstack-settings-hook` to finish. `/cso` stays unavailable without the Visual Studio 2022 C++ toolchain; orchestra does not use it.
+- graphify: nothing pending. The CLI and the skill are both 0.9.114.
+- Not yet done after the gstack upgrade: rerunning one gstack route (for example `/qa-only`) on the new version.
 
 ## If an upstream becomes unavailable or unsuitable
 

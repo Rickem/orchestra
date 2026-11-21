@@ -1,6 +1,6 @@
 {
   "name": "orchestra-factory",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": true,
   "description": "Development scripts for the orchestra software factory plugin. No runtime dependencies.",
   "type": "module",

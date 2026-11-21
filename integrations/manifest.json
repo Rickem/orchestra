@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "factoryVersion": "0.1.4",
+  "factoryVersion": "0.1.5",
   "lastCompatibilityCheck": "2026-11-21",
   "claudeCode": { "testedVersion": "2.1.283", "requiredFeatures": ["plugins", "skills", "subagents", "PreToolUse hooks"] },
   "upstreams": [
@@ -37,8 +37,8 @@
       "license": "MIT",
       "installMethod": "git clone into ~/.claude/skills/gstack, then ./setup",
       "locate": { "type": "skills-dir", "dir": "gstack", "versionFile": "VERSION" },
-      "version": "1.91.295.0",
-      "commit": "61e201ec08bcf59163ef2d3a69a26e334a536c04",
+      "version": "1.102.1.0",
+      "commit": "6263e0ef33fc5827a7642fc5c8b2757affed7fbc",
       "necessity": "recommended",
       "localPatches": "none",
       "components": [
@@ -53,7 +53,7 @@
       "knownLimitations": [
         "Upstream documents Windows 11; on Windows 10 its bundled browser drove a local page correctly in a live /qa-only run on 2026-11-21."
         ,"Its skills append their own report sections to reviewed documents, keep logs and a cross-project profile in ~/.gstack, and /ship has no approval stop of its own.",
-        "v1.102.1.0 was available on 2026-11-21 but not installed; update per UPDATE_GUIDE.md.",
+        "Upgraded from 1.91.295.0 to 1.102.1.0 on 2026-11-21. The live route tests ran on 1.91.295.0 and were not repeated on 1.102.1.0; only the presence of the routed skills was rechecked.",
         "On Windows without Developer Mode, rerun ./setup after every git pull.",
         "Requires Bun and Node.js on PATH for browser skills."
       ]

@@ -1,10 +1,10 @@
 # Known limits and planned improvements
 
-## Known limits in 0.1.4
+## Known limits in 0.1.5
 
 - Every workflow skill has been run live once, by test sessions; none has automated behavioural tests, so a wording regression would not be caught.
 - Every selected upstream route has been run live once except gstack `/land-and-deploy` (no deploy target) and `/ship` beyond its first gate (no remote). The gstack reviews were run without a live user, so their interactive flow is untested.
-- gstack was tested at 1.91.295.0, not the latest release.
+- The gstack route tests ran on 1.91.295.0; gstack has since been upgraded to 1.102.1.0 and the routes were not rerun on it.
 - `init` and `release` cannot be invoked by the model; they were not run as slash commands by a person.
 - Scripts were run on Windows 10 only.
 - The guard hook catches common credential shapes, not all secrets.

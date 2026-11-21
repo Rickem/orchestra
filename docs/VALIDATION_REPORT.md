@@ -119,6 +119,6 @@ Three desktop-app sessions ran the routes on throwaway copies in their own scrat
 | gstack reviews with a live user | Run without one; answers came from a fixed brief | Their interactive flow and approval steps are untested |
 | gstack `/ship` past its first gate, and `/land-and-deploy` | No remote and no deploy target in the test | Unexercised |
 | The 0.1.4 text fixes | Applied after the route runs; not rerun live | Wording changes, plus the doctor check which was run |
-| gstack upgrade to v1.102.1.0 | Blocked by a permission check in the build session | Manifest pins the installed 1.91.295.0 |
+| gstack routes on 1.102.1.0 | gstack was upgraded after the route tests, which ran on 1.91.295.0 | After the upgrade only the doctor was run: all seven routed gstack skills are present. Their behaviour on the new version is unverified. |
 | Headless `claude -p` runs | The CLI sign-in on the build machine had expired | None for the plugin; CI-style runs are untested |
 | macOS and Linux | No machine | Assumed portable |

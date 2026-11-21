@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.5 — 2026-11-21
+
+- Manifest: gstack pinned at 1.102.1.0 (upgraded from 1.91.295.0). The gstack route tests predate the upgrade and were not rerun.
+- graphify CLI on the build machine upgraded to 0.9.114, matching the skill; the Windows file-lock workaround is documented in the compatibility notes.
+- Update guide: pending items refreshed, including gstack's unfinished settings-hook update.
+
 ## 0.1.4 — 2026-11-21
 
 Fixes from running the superpowers, gstack and graphify routes live.

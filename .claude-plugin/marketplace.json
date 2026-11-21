@@ -7,7 +7,7 @@
       "name": "orchestra",
       "source": "./",
       "description": "Reusable software factory: lifecycle workflows, quality gates, task tracking and a task board.",
-      "version": "0.1.4",
+      "version": "0.1.5",
       "license": "MIT"
     }
   ]
