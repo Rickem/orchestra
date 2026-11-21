@@ -18,9 +18,9 @@ Read `${CLAUDE_PLUGIN_ROOT}/standards/principles.md`, `${CLAUDE_PLUGIN_ROOT}/sta
 2. **Coverage of change.** For each changed behaviour and each acceptance criterion, name the test that would fail without it. Add the missing ones.
 3. **Other gates.** Run `lint`, `typecheck` and `build` if they have commands.
 4. **Failures.** Report the exact failing test and message. Use `superpowers:systematic-debugging` to find the cause. A pre-existing failure is reported as such, not hidden.
-5. **Browser checks (UI only).** If `integrations.browserQa` is true, run gstack `/qa-only` against the acceptance criteria and keep its report as evidence. Fallback: `ecc:e2e-runner`.
+5. **Browser checks (UI only).** If `integrations.browserQa` is true, run gstack `/qa-only`, giving it the URL and the acceptance criteria, and put the path of its report (under `.gstack/qa-reports/`) in the verification log. Fallback: `ecc:e2e-runner`.
 6. **No tests is not a pass.** If the test command runs zero tests, or none that exercises the change, record the `test` gate as `fail` with that reason.
-7. **Record.** Append one line per check to the task's `## Verification log`. Set status: `in-review` if the required gates pass; `in-progress` if not. Do not set `verified` here: that happens after review, at the end of `/orchestra:code-review`.
+7. **Record.** Before reporting, apply `superpowers:verification-before-completion` if it is installed. Append one line per check to the task's `## Verification log`. Set status: `in-review` if the required gates pass; `in-progress` if not. Do not set `verified` here: that happens after review, at the end of `/orchestra:code-review`.
 
 ## Rules
 

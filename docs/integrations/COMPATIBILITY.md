@@ -32,9 +32,11 @@ Orchestra's scripts need Node.js 18 or newer and have no dependencies.
 | superpowers session hook | Urges skill use on any match | Orchestra skills name the superpowers skills they want; no change needed |
 | Vercel plugin session hook | In an empty folder it says to skip exploration and start building | Start new projects with `/orchestra:init` and `/orchestra:project-discovery` explicitly |
 | Built-in `/code-review`, `/security-review` | Same short names | Use the `/orchestra:` prefix for the gated versions |
-| gstack on Windows | Upstream documents Windows 11; copies instead of symlinks without Developer Mode | Rerun `./setup` after each `git pull`; browser QA is unverified on Windows 10 |
+| gstack on Windows | Upstream documents Windows 11; copies instead of symlinks without Developer Mode | Rerun `./setup` after each `git pull`. Its bundled browser drove a local page correctly on Windows 10 in a live `/qa-only` run. |
+| gstack state and prompts | Every gstack skill prints an upgrade notice, writes logs and a cross-project builder profile to `~/.gstack`, and `/office-hours` showed another project's details from it. `/plan-design-review` mockups send a brief to an outside image service. | Decline mid-workflow upgrades; ignore other projects' details; skip mockup generation for confidential work |
+| graphify auto-refresh | Running the newer graphify rewrote the graphify skill in another tool's folder (`~/.gemini/config/skills/graphify`) | Set `GRAPHIFY_NO_AUTO_REFRESH=1` if that is unwanted |
 | Local-directory marketplace | With the plugin installed from a local folder, skills received paths into that source folder, while `installed_plugins.json` points at a cached snapshot | Bump the version and run `claude plugin update` after every change so the two cannot drift |
-| graphify CLI | A second, older `graphify` (0.9.7, installed with `uv tool`) is first on PATH on the build machine | Use `python -m graphify`, or upgrade the `uv` copy; running the old CLI's `install` downgrades the skill |
+| graphify CLI | A second, older `graphify` (0.9.7, installed with `uv tool`) is first on PATH on the build machine | Upgrade the `uv` copy (`uv tool upgrade graphifyy`). Until then the graphify skill picks the old interpreter and its build fails with an ImportError; `python -m graphify` works. The doctor reports the mismatch. Running the old CLI's `install` downgrades the skill. |
 
 ## Limits of this document
 

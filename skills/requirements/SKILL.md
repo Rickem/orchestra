@@ -19,7 +19,7 @@ Read `${CLAUDE_PLUGIN_ROOT}/standards/principles.md` and `${CLAUDE_PLUGIN_ROOT}/
    - No requirement rests on an assumption; assumptions are in the open-questions table.
    - The security and privacy table is answered row by row, using `${CLAUDE_PLUGIN_ROOT}/standards/security-privacy.md`.
    - Accessibility and performance needs are stated or marked not applicable with a reason.
-3. For a product-level challenge of scope and priorities, offer gstack `/plan-ceo-review` on the PRD. Optional.
+3. For a product-level challenge of scope and priorities, offer gstack `/plan-ceo-review` on the PRD. Optional. It appends its own report to the PRD; keep it under a clear heading and treat the findings as input, never as approval.
 4. Put open questions to the user one at a time, most blocking first.
 
 ## Output

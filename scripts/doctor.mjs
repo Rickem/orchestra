@@ -70,6 +70,11 @@ export function diagnose({ project, skipCommands = false } = {}) {
       found.version === u.version ? undefined : 'Follow docs/integrations/UPDATE_GUIDE.md, then update the manifest.');
     const missing = u.components.filter((c) => !found.has(c)).map((c) => `${c.kind} ${c.name}`);
     if (missing.length) add('warn', `${u.id} components`, `missing: ${missing.join(', ')}`, 'Upstream may have renamed or removed them; check UPDATE_GUIDE.md.');
+    if (u.id === 'graphify' && !skipCommands) {
+      // graphify prints this itself when the CLI on PATH is older than the installed skill.
+      const m = /skill is from graphify ([\d.]+), but the package is ([\d.]+)/.exec(sh('graphify --help 2>&1') ?? '');
+      if (m) add('warn', 'graphify cli', `CLI on PATH is v${m[2]}, skill is v${m[1]}; the skill's build fails on the older CLI`, 'Run: uv tool upgrade graphifyy (or pip install -U graphifyy), closing anything that is using it first.');
+    }
   }
 
   if (project) {

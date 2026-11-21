@@ -1,6 +1,6 @@
 {
   "name": "orchestra",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Reusable software factory: lifecycle workflows, quality gates, task tracking and a task board that orchestrate ECC, gstack and superpowers instead of duplicating them.",
   "author": { "name": "orchestra maintainers" },
   "license": "MIT",

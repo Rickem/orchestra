@@ -33,10 +33,10 @@ Inspected: 2026-11-21, on Windows 10 with Claude Code 2.1.283. Sources: the loca
 
 ## Not verified
 
-- gstack browser tooling on this Windows 10 machine was not exercised.
+- gstack browser tooling was later exercised on this Windows 10 machine and worked (see `docs/VALIDATION_REPORT.md`).
 - The gstack upgrade to v1.102.1.0 was not applied; the manifest pins the installed 1.91.295.0.
 - superpowers was not compared against its latest upstream release.
-- No upstream skill was run as part of this assessment except the ECC `code-reviewer` agent (see `docs/VALIDATION_REPORT.md`).
+- No upstream skill was run as part of this assessment. Every selected route except `land-and-deploy` was run live afterwards (see `docs/VALIDATION_REPORT.md`).
 
 ## Recommendation
 

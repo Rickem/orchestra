@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.4 — 2026-11-21
+
+Fixes from running the superpowers, gstack and graphify routes live.
+
+- `testing` and `sprint-planning` now actually point to `superpowers:verification-before-completion` and `superpowers:dispatching-parallel-agents`; the routing table named them but no skill did.
+- `feature-implementation`: names the test-first skill on the main-session path; plans stay in the task file; worktree, lockfile and merge rules stated.
+- New "Rules when a routed skill runs" in the routing standard: orchestra's approval rules win, routed output is kept under a clear heading, other projects' details are never used, mid-workflow upgrade offers are declined.
+- gstack routes: `testing` passes the URL and criteria to `/qa-only` and records the report path; `requirements`, `architecture` and `project-discovery` say what the gstack reviews write and where; `release` notes that `/ship` has no approval stop of its own.
+- graphify route: size threshold, measured cost, where the report is and how to query it; `project-handover` falls back to a full build.
+- Doctor: reports a graphify CLI that is older than the installed graphify skill.
+
 ## 0.1.3 — 2026-11-21
 
 Fixes from running every workflow live in two test sessions.

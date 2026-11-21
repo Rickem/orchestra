@@ -20,7 +20,7 @@ If the project already uses an issue tracker, keep tasks there and create task f
 2. **Write task files.** Copy `${CLAUDE_PLUGIN_ROOT}/templates/development/TASK.md` to `<tasks>/T-NNN-slug.md`. IDs are sequential and never reused. Fill every section; acceptance criteria come from the requirement they trace to (`requirement: FR-001`).
 3. **Own files.** List in `files`, as an inline list such as `[src/a.js, test/a.test.js]`, the files or modules the task may edit. No two tasks that could run at the same time may share an entry.
 4. **Order.** Fill `depends_on`. Put shared interfaces (types, schemas, API contracts) in their own task, first. A contract already fixed in the architecture document needs no separate task.
-5. **Group for parallel work.** Tasks with no dependency between them and no shared files form a parallel group. State the group in the sprint file.
+5. **Group for parallel work.** Tasks with no dependency between them and no shared files form a parallel group. State the group in the sprint file. To run a group, use `superpowers:dispatching-parallel-agents` if it is installed.
 6. **Tier.** Set `tier` per task using `${CLAUDE_PLUGIN_ROOT}/standards/lifecycle.md`. Anything touching auth, payments, personal data, migrations or infrastructure is at least `standard`.
 7. **Sprint file.** Write `docs/development/SPRINTS/sprint-NN.md` from the SPRINT template (create the folder if needed; leave the end date blank if none is set) and update `ROADMAP.md`.
 8. **Check.** Run `node "${CLAUDE_PLUGIN_ROOT}/scripts/board.mjs" --project . --check` and fix anything it reports (bad status, missing dependency, overlapping files).

@@ -19,7 +19,7 @@ Read `${CLAUDE_PLUGIN_ROOT}/standards/principles.md` and `${CLAUDE_PLUGIN_ROOT}/
 3. **Choose the stack for a new project.** If the brief or existing code already fixes the stack, record it and ask only for what is missing. Otherwise ask the user for language, framework, database, auth, hosting, and for UI: framework, component library and styling. Propose one option with a reason; never impose one. Write the choices to `stack` in `.orchestra/project.json`.
 4. **Write.** Fill `docs/architecture/SYSTEM_ARCHITECTURE.md`. For each significant decision create `docs/architecture/decisions/ADR-NNNN-slug.md` from `${CLAUDE_PLUGIN_ROOT}/templates/architecture/ADR.md`, with at least one alternative and the consequences. Create the folder if it does not exist. Add any new environment variable names to `envVars` in `.orchestra/project.json`.
 5. **Database and API detail.** Add `DATABASE_SCHEMA.md` or `API_SPECIFICATION.md` only if the content outgrows the architecture document. For schema work, have `ecc:database-reviewer` check integrity, migration safety and data-layer authorization.
-6. **Critique (optional).** Offer gstack `/plan-eng-review` on the result; for UI-heavy products, `/plan-design-review`.
+6. **Critique (optional).** Offer gstack `/plan-eng-review` on the result; for UI-heavy products, `/plan-design-review`. Each appends its own report section to the document it reviews and keeps logs in `~/.gstack`. Keep that section under a clear heading or move it to `docs/quality/`, and treat the findings as input, never as approval.
 7. **Conflicts.** If a project decision contradicts a factory default, name it in the ADR and follow the project decision.
 
 ## Output

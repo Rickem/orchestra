@@ -15,8 +15,8 @@ Read `${CLAUDE_PLUGIN_ROOT}/standards/principles.md` and `${CLAUDE_PLUGIN_ROOT}/
 ## Steps
 
 1. **Inspect.** Read the README, docs, manifests, CI config, git log (last 20 commits, if there are any) and directory layout. Note the stack, commands and conventions actually in use.
-2. **Map (optional).** For a large or unfamiliar codebase, and only if `integrations.graphify` is true or the user agrees, run `/graphify` and use its report. Say that it costs tokens. Skip for new or small projects.
-3. **Clarify.** Ask the user, one question at a time, for anything not in the repo: problem, users, goals, constraints, deadline. For a new product idea, offer gstack `/office-hours` to pressure-test it; if gstack is missing, ask the questions yourself.
+2. **Map (optional).** For a large or unfamiliar codebase, and only if `integrations.graphify` is true or the user agrees, run `/graphify`, read `graphify-out/GRAPH_REPORT.md`, and use `graphify explain <file>` for dependency questions. Say what it costs first: about seven minutes and 500k tokens for a 100-file repository in testing. Skip it for new projects and whenever the code and docs fit in one context window (roughly under 100k words). Run the doctor first; a graphify version mismatch makes the build fail. Keep `graphify-out/` out of git unless the user wants it tracked.
+3. **Clarify.** Ask the user, one question at a time, for anything not in the repo: problem, users, goals, constraints, deadline. For a new product idea, offer gstack `/office-hours` to pressure-test it; if gstack is missing, ask the questions yourself. `/office-hours` writes its own design document under `docs/designs/`: summarise the outcome in `DISCOVERY.md` and link it. Ignore anything it shows from other projects.
 4. **Record.** Write or update `docs/product/DISCOVERY.md` from the DISCOVERY template. Separate what was *detected*, what the user *stated* and what is *assumed*.
 5. **List env vars by name only.** Read names from `.env.example` or config. Never open or print values from `.env` files.
 

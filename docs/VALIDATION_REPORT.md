@@ -69,6 +69,27 @@ Two further desktop-app sessions ran every remaining workflow. Their results wer
 | `release` | Refused by the Skill tool, as designed | No release was performed |
 | Sample project after the run | Pass | `npm test`: 9 passed; board: T-001 and T-003 `verified`, T-002 `not-started` |
 
+## Live upstream route tests (version 0.1.3, fixes released as 0.1.4)
+
+Three desktop-app sessions ran the routes on throwaway copies in their own scratch folders. The real repository and its remote were checked afterwards and were unchanged.
+
+| Route | Result | Evidence |
+|---|---|---|
+| superpowers `writing-plans` | Pass | Reached from `feature-implementation`; plan kept in the task file. Its own save location and commit steps conflict with orchestra and were skipped. |
+| superpowers `using-git-worktrees` | Pass | Worktree created and removed in the copy; needed a git-ignored folder and left an unowned lockfile, which was removed |
+| superpowers `test-driven-development` | Pass | Tests failed first, then 11 of 11 passed |
+| superpowers `systematic-debugging` | Pass | An injected one-line bug was found and fixed |
+| superpowers `verification-before-completion` | Pass, but unreachable | Worked when invoked by hand; no orchestra skill pointed to it |
+| superpowers `dispatching-parallel-agents` | Pass, but unreachable | Two parallel read-only agents returned correct summaries; `sprint-planning` did not mention it |
+| gstack `office-hours` | Partial | Ran to a draft design document; its questions were answered from a fixed brief, not by a person, and the draft was never approved |
+| gstack `plan-ceo-review`, `plan-eng-review`, `plan-design-review` | Partial | Each ran in condensed form without a live user and appended its report to the reviewed document |
+| gstack `qa-only` on Windows 10 | Pass | Its bundled browser loaded a local page, typed, clicked and confirmed both acceptance criteria; report and three screenshots written under `.gstack/qa-reports/` |
+| gstack `ship` | Stopped at its first gate, as intended | No remote and default branch; nothing was changed, pushed or opened |
+| gstack `land-and-deploy` | Not run | No deploy target |
+| graphify build | Pass after a workaround | The skill picked the older 0.9.7 interpreter and failed with an ImportError; on 0.9.114 it built 257 nodes and 469 edges from 102 files in about 7 minutes and about 500k tokens |
+| graphify queries | 1 correct, 1 partly | `explain` listed exactly the four files importing `tasks.mjs`; the guard-hook query found the related files but missed `hooks/hooks.json` and explained nothing |
+| graphify update | Pass | One changed file re-processed in about 7 seconds |
+
 ## Defects found by the live tests and fixed
 
 | Defect | Fix |
@@ -82,6 +103,9 @@ Two further desktop-app sessions ran every remaining workflow. Their results wer
 | `init` wrote factory version 0.1.0 into `project.json` regardless of the installed version | 0.1.3: reads it from the plugin manifest; covered by a test |
 | Implementer log lines were free text and it ticked acceptance checkboxes | 0.1.3: format stated; ticking left to the verifier |
 | About a dozen smaller ambiguities in skill text (approval wording, question numbering, diff scope, not-applicable areas, missing folders, empty git log) | 0.1.3: each clarified in the skill concerned |
+| The routing table named two superpowers skills that no orchestra skill referenced | 0.1.4: `testing` and `sprint-planning` point to them |
+| Orchestra said nothing about what gstack reviews write, where, or that `/ship` has no approval stop | 0.1.4: stated in each skill and in new rules for routed skills |
+| The graphify route gave no size threshold, cost, result location or version check | 0.1.4: all four added; the doctor reports the CLI mismatch |
 
 ## Not run or not verified
 
@@ -92,7 +116,9 @@ Two further desktop-app sessions ran every remaining workflow. Their results wer
 | `init` and `release` typed as slash commands by a person | The model cannot invoke them; no person has run them yet | Their scripts and steps were exercised by hand; the slash-command entry point was not |
 | The 0.1.3 text fixes themselves | Applied after the live runs; not rerun live | Wording changes only, plus one tested script change |
 | A release on a real project | No project is at that stage | The `release` checklist is unexercised |
-| gstack, superpowers and graphify routes | Not exercised | Wired by name; existence checked by the doctor |
+| gstack reviews with a live user | Run without one; answers came from a fixed brief | Their interactive flow and approval steps are untested |
+| gstack `/ship` past its first gate, and `/land-and-deploy` | No remote and no deploy target in the test | Unexercised |
+| The 0.1.4 text fixes | Applied after the route runs; not rerun live | Wording changes, plus the doctor check which was run |
 | gstack upgrade to v1.102.1.0 | Blocked by a permission check in the build session | Manifest pins the installed 1.91.295.0 |
 | Headless `claude -p` runs | The CLI sign-in on the build machine had expired | None for the plugin; CI-style runs are untested |
 | macOS and Linux | No machine | Assumed portable |

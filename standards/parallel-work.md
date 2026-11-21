@@ -6,7 +6,7 @@ Run tasks in parallel only when they are independent: no shared files, no depend
 
 - Each task lists the files or modules it owns. Two running tasks never own the same file.
 - Define shared interfaces (types, API contracts, schemas) in their own task and finish it first.
-- One branch or worktree per concurrent task. Use `superpowers:using-git-worktrees` when available.
+- One branch or worktree per concurrent task. Use `superpowers:using-git-worktrees` when available. Keep worktrees in a git-ignored folder or outside the repository.
 - Integrate through a reviewed diff. Rerun the test gate on the integrated branch, not only on each branch.
 - Resolve conflicts deliberately. Never discard another agent's work to make a merge easier.
 - Keep commits focused: one task, one purpose.

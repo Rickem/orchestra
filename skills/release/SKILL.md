@@ -26,7 +26,7 @@ Read `${CLAUDE_PLUGIN_ROOT}/standards/principles.md`, `${CLAUDE_PLUGIN_ROOT}/sta
 
 ## After approval only
 
-- To push and open a pull request, the user may run gstack `/ship`, or you do it by hand with git and `gh` when asked.
+- To push and open a pull request, the user may run gstack `/ship`, or you do it by hand with git and `gh` when asked. `/ship` has no approval stop of its own; it expects a feature branch, a remote and `gh`, and it updates version and changelog files.
 - Production deployment is a separate, explicit approval. Use the procedure in `DEPLOYMENT.md`, or gstack `/land-and-deploy` if the user asks for it.
 
 ## Output

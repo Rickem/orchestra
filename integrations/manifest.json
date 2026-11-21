@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "factoryVersion": "0.1.3",
+  "factoryVersion": "0.1.4",
   "lastCompatibilityCheck": "2026-11-21",
   "claudeCode": { "testedVersion": "2.1.283", "requiredFeatures": ["plugins", "skills", "subagents", "PreToolUse hooks"] },
   "upstreams": [
@@ -51,7 +51,8 @@
         { "kind": "skill", "name": "land-and-deploy", "usedBy": ["release"] }
       ],
       "knownLimitations": [
-        "Upstream documents Windows 11; this factory was assembled on Windows 10 and gstack's browser tools were not exercised there.",
+        "Upstream documents Windows 11; on Windows 10 its bundled browser drove a local page correctly in a live /qa-only run on 2026-11-21."
+        ,"Its skills append their own report sections to reviewed documents, keep logs and a cross-project profile in ~/.gstack, and /ship has no approval stop of its own.",
         "v1.102.1.0 was available on 2026-11-21 but not installed; update per UPDATE_GUIDE.md.",
         "On Windows without Developer Mode, rerun ./setup after every git pull.",
         "Requires Bun and Node.js on PATH for browser skills."
@@ -94,7 +95,8 @@
       "localPatches": "none",
       "components": [{ "kind": "skill", "name": "graphify", "usedBy": ["project-discovery", "project-handover"] }],
       "knownLimitations": [
-        "Building a graph costs tokens; use only for large or unfamiliar codebases.",
+        "Building a graph cost about seven minutes and 500k tokens for a 100-file repository; use only when the code does not fit in one context window."
+        ,"The skill fails with an ImportError if an older graphify CLI is first on PATH; the doctor reports the mismatch.",
         "Off by default per project (integrations.graphify)."
       ]
     }

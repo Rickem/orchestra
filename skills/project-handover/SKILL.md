@@ -17,7 +17,7 @@ Read `${CLAUDE_PLUGIN_ROOT}/standards/principles.md` and `${CLAUDE_PLUGIN_ROOT}/
 2. **Verify setup.** Run the documented install, test and build commands that exist for this project. Mark each as ran (result) or not run (why).
 3. **Environment variables.** List names and purpose only, from `.env.example` or config. Never read or print values.
 4. **Honest status.** List separately: accepted, verified but not accepted, implemented but unverified, not started. List open findings and defects.
-5. **Map (optional).** For a large codebase with `integrations.graphify` true, refresh the graph with `/graphify --update` and link its report.
+5. **Map (optional).** For a large codebase with `integrations.graphify` true, refresh the graph with `/graphify --update` (a full `/graphify` if no graph exists yet) and link `graphify-out/GRAPH_REPORT.md`.
 6. **Write** `docs/operations/HANDOVER.md` from `${CLAUDE_PLUGIN_ROOT}/templates/operations/HANDOVER.md`. Link to existing docs; do not copy them.
 7. **Lessons.** Propose candidate lessons using the LESSON template. They stay candidates until the user approves them; see the factory's `docs/governance/LESSONS.md`.
 
