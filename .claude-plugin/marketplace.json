@@ -1,0 +1,14 @@
+{
+  "name": "orchestra-local",
+  "owner": { "name": "orchestra maintainers" },
+  "metadata": { "description": "Local marketplace for the orchestra software factory plugin" },
+  "plugins": [
+    {
+      "name": "orchestra",
+      "source": "./",
+      "description": "Reusable software factory: lifecycle workflows, quality gates, task tracking and a task board.",
+      "version": "0.1.0",
+      "license": "MIT"
+    }
+  ]
+}

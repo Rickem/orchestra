@@ -1,0 +1,10 @@
+{
+  "name": "orchestra-sample",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tiny sample project showing the orchestra workflow end to end.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  }
+}

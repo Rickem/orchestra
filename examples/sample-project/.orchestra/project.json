@@ -1,0 +1,65 @@
+{
+  "orchestra": "0.1.0",
+  "name": "orchestra-sample",
+  "defaultTier": "standard",
+  "stack": {
+    "language": "JavaScript",
+    "runtime": "Node.js",
+    "frameworks": [],
+    "packageManager": "npm",
+    "database": null,
+    "auth": null,
+    "hosting": null,
+    "ui": {
+      "framework": null,
+      "components": null,
+      "styling": null
+    }
+  },
+  "paths": {
+    "docs": "docs",
+    "tasks": "docs/development/tasks",
+    "decisions": "docs/architecture/decisions"
+  },
+  "gates": {
+    "test": {
+      "command": "npm test",
+      "required": true
+    },
+    "lint": {
+      "command": null,
+      "required": false
+    },
+    "typecheck": {
+      "command": null,
+      "required": false
+    },
+    "build": {
+      "command": null,
+      "required": false
+    },
+    "codeReview": {
+      "command": "manual",
+      "required": true
+    },
+    "securityReview": {
+      "command": "manual",
+      "required": false
+    },
+    "acceptance": {
+      "command": "manual",
+      "required": true
+    }
+  },
+  "protectedPaths": [],
+  "hooks": {
+    "guard": true
+  },
+  "integrations": {
+    "graphify": false,
+    "browserQa": false
+  },
+  "envVars": [
+    "SLUG_MAX_LENGTH"
+  ]
+}

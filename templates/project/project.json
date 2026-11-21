@@ -1,0 +1,33 @@
+{
+  "orchestra": "0.1.0",
+  "name": "{{PROJECT_NAME}}",
+  "defaultTier": "standard",
+  "stack": {
+    "language": null,
+    "runtime": null,
+    "frameworks": [],
+    "packageManager": null,
+    "database": null,
+    "auth": null,
+    "hosting": null,
+    "ui": { "framework": null, "components": null, "styling": null }
+  },
+  "paths": {
+    "docs": "docs",
+    "tasks": "docs/development/tasks",
+    "decisions": "docs/architecture/decisions"
+  },
+  "gates": {
+    "test": { "command": null, "required": true },
+    "lint": { "command": null, "required": false },
+    "typecheck": { "command": null, "required": false },
+    "build": { "command": null, "required": false },
+    "codeReview": { "command": "manual", "required": true },
+    "securityReview": { "command": "manual", "required": false },
+    "acceptance": { "command": "manual", "required": true }
+  },
+  "protectedPaths": [],
+  "hooks": { "guard": true },
+  "integrations": { "graphify": false, "browserQa": false },
+  "envVars": []
+}

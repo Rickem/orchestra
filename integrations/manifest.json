@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "factoryVersion": "0.1.0",
+  "lastCompatibilityCheck": "2026-11-21",
+  "claudeCode": { "testedVersion": "2.1.283", "requiredFeatures": ["plugins", "skills", "subagents", "PreToolUse hooks"] },
+  "upstreams": [
+    {
+      "id": "ecc",
+      "name": "Everything Claude Code (ECC)",
+      "repository": "https://github.com/affaan-m/ECC",
+      "license": "MIT",
+      "installMethod": "Claude Code plugin from the ecc marketplace (user scope)",
+      "locate": { "type": "plugin", "key": "ecc" },
+      "version": "2.2.3",
+      "commit": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+      "necessity": "recommended",
+      "localPatches": "none",
+      "components": [
+        { "kind": "agent", "name": "architect", "usedBy": ["architecture"] },
+        { "kind": "agent", "name": "code-reviewer", "usedBy": ["code-review"] },
+        { "kind": "agent", "name": "security-reviewer", "usedBy": ["security-review"] },
+        { "kind": "agent", "name": "database-reviewer", "usedBy": ["architecture"] },
+        { "kind": "agent", "name": "e2e-runner", "usedBy": ["testing"] },
+        { "kind": "skill", "name": "tdd-workflow", "usedBy": ["feature-implementation"] },
+        { "kind": "skill", "name": "verification-loop", "usedBy": ["testing"] }
+      ],
+      "knownLimitations": [
+        "Ships 71 agents and 311 skills; orchestra uses 7. The rest stay installed but are not called by orchestra.",
+        "ECC registers its own hooks (27 groups in 2.2.3). They run alongside orchestra's guard hook.",
+        "The repository was renamed from affaan-m/everything-claude-code; the old URL redirects."
+      ]
+    },
+    {
+      "id": "gstack",
+      "name": "gstack",
+      "repository": "https://github.com/garrytan/gstack",
+      "license": "MIT",
+      "installMethod": "git clone into ~/.claude/skills/gstack, then ./setup",
+      "locate": { "type": "skills-dir", "dir": "gstack", "versionFile": "VERSION" },
+      "version": "1.91.295.0",
+      "commit": "61e201ec08bcf59163ef2d3a69a26e334a536c04",
+      "necessity": "recommended",
+      "localPatches": "none",
+      "components": [
+        { "kind": "skill", "name": "office-hours", "usedBy": ["project-discovery"] },
+        { "kind": "skill", "name": "plan-ceo-review", "usedBy": ["requirements"] },
+        { "kind": "skill", "name": "plan-eng-review", "usedBy": ["architecture"] },
+        { "kind": "skill", "name": "plan-design-review", "usedBy": ["architecture"] },
+        { "kind": "skill", "name": "qa-only", "usedBy": ["testing"] },
+        { "kind": "skill", "name": "ship", "usedBy": ["release"] },
+        { "kind": "skill", "name": "land-and-deploy", "usedBy": ["release"] }
+      ],
+      "knownLimitations": [
+        "Upstream documents Windows 11; this factory was assembled on Windows 10 and gstack's browser tools were not exercised there.",
+        "v1.102.1.0 was available on 2026-11-21 but not installed; update per UPDATE_GUIDE.md.",
+        "On Windows without Developer Mode, rerun ./setup after every git pull.",
+        "Requires Bun and Node.js on PATH for browser skills."
+      ]
+    },
+    {
+      "id": "superpowers",
+      "name": "superpowers",
+      "repository": "https://github.com/obra/superpowers",
+      "license": "MIT",
+      "installMethod": "Claude Code plugin from claude-plugins-official (user scope)",
+      "locate": { "type": "plugin", "key": "superpowers" },
+      "version": "7.0.2",
+      "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "necessity": "recommended",
+      "localPatches": "none",
+      "components": [
+        { "kind": "skill", "name": "test-driven-development", "usedBy": ["feature-implementation"] },
+        { "kind": "skill", "name": "systematic-debugging", "usedBy": ["feature-implementation", "testing"] },
+        { "kind": "skill", "name": "verification-before-completion", "usedBy": ["testing"] },
+        { "kind": "skill", "name": "writing-plans", "usedBy": ["feature-implementation"] },
+        { "kind": "skill", "name": "using-git-worktrees", "usedBy": ["feature-implementation"] },
+        { "kind": "skill", "name": "dispatching-parallel-agents", "usedBy": ["sprint-planning"] }
+      ],
+      "knownLimitations": [
+        "Its session-start hook tells the model to invoke a skill whenever one might apply; orchestra calls its skills by name and does not rely on that.",
+        "Its brainstorming skill is not used inside orchestra workflows."
+      ]
+    },
+    {
+      "id": "graphify",
+      "name": "graphify",
+      "repository": "https://github.com/Graphify-Labs/graphify",
+      "license": "Apache-2.0",
+      "installMethod": "pip install graphifyy, then graphify install --platform claude",
+      "locate": { "type": "skills-dir", "dir": "graphify", "versionFile": ".graphify_version" },
+      "version": "0.9.114",
+      "commit": null,
+      "necessity": "optional",
+      "localPatches": "none",
+      "components": [{ "kind": "skill", "name": "graphify", "usedBy": ["project-discovery", "project-handover"] }],
+      "knownLimitations": [
+        "Building a graph costs tokens; use only for large or unfamiliar codebases.",
+        "Off by default per project (integrations.graphify)."
+      ]
+    }
+  ],
+  "excluded": [
+    { "name": "ECC continuous-learning / instincts", "reason": "Writes lessons automatically; orchestra promotes lessons only after human approval." },
+    { "name": "ECC plan, gstack /review, superpowers brainstorming", "reason": "Would give one capability two owners." },
+    { "name": "gstack /cso", "reason": "Needs a native toolchain; ECC security-reviewer owns security review." },
+    { "name": "MCP servers (GitHub, Figma, Playwright, Supabase)", "reason": "Project-dependent; documented, not installed by default." },
+    { "name": "Agent Teams", "reason": "Optional Claude Code capability; never a dependency." }
+  ]
+}
