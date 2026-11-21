@@ -27,7 +27,7 @@
     "acceptance": { "command": "manual", "required": true }
   },
   "protectedPaths": [],
-  "hooks": { "guard": true },
+  "hooks": { "guard": true, "unattended": "deny" },
   "integrations": { "graphify": false, "browserQa": false },
   "envVars": []
 }

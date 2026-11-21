@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "factoryVersion": "0.1.0",
+  "factoryVersion": "0.1.2",
   "lastCompatibilityCheck": "2026-11-21",
   "claudeCode": { "testedVersion": "2.1.283", "requiredFeatures": ["plugins", "skills", "subagents", "PreToolUse hooks"] },
   "upstreams": [

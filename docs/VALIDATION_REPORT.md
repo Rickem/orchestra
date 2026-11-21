@@ -6,7 +6,7 @@ Date: 2026-11-21. Machine: Windows 10, Node.js 22.17.1, Claude Code 2.1.283. Eve
 
 | Check | Command | Result |
 |---|---|---|
-| Unit and integration tests | `node --test tests/factory.test.mjs` | 16 passed, 0 failed |
+| Unit and integration tests | `node --test tests/factory.test.mjs` | 17 passed, 0 failed |
 | Static factory validation | `node scripts/validate-factory.mjs` | 11 of 11 checks passed |
 | Marketplace manifest | `claude plugin validate .` | Passed |
 | Plugin manifest | `claude plugin validate .claude-plugin/plugin.json` | Passed |
@@ -32,19 +32,43 @@ What the automated tests cover: task parsing and consistency checks; board rende
 | `node --test <directory>` fails on Node 22 (in the factory's and the sample's test scripts) | Test scripts now name the file or use plain `node --test`; recorded as lesson L-001 |
 | Running `graphify install` from an older CLI on PATH downgraded the graphify skill from 0.9.65 to 0.9.7 | Reinstalled from the upgraded package with `python -m graphify`; skill is now 0.9.114; noted in `COMPATIBILITY.md` |
 
+## Live session tests (plugin installed at user scope)
+
+Installed with `claude plugin marketplace add` and `claude plugin install orchestra@orchestra-local`. `claude plugin details orchestra` reported 13 skills, 3 agents, 1 hook and about 1,100 always-on tokens. Tests ran in separate desktop-app sessions.
+
+| Check | Result | Evidence |
+|---|---|---|
+| Skills and agents discovered | Pass | All 3 agents listed; 9 of the 11 model-invocable skills were listed by the test session, and all 11 appear in the parent session's listing. `init` and `release` are user-invoked only and correctly absent. |
+| `${CLAUDE_PLUGIN_ROOT}` substitution in skill text | Pass | `orchestra:doctor` delivered `node "C:/app/projects/orchestra/scripts/doctor.mjs"` |
+| `/orchestra:doctor` end to end | Pass | 10 ok, 0 info, 0 warn, 0 fail |
+| `/orchestra:board` end to end | Pass | 3 tasks; T-001 verified; T-002, T-003 not-started |
+| `orchestra:product-manager` agent | Pass | Dispatched; its answer matched the definition's mission and must-not list |
+| Guard hook fires on Write | Pass | Trace line showed the hook ran with the right path and matched |
+| Guard hook in auto mode, version 0.1.0 | **Fail** | It returned "ask"; Claude Code resolved it with no prompt and the secrets-file write succeeded |
+| Guard hook in accept-edits mode, version 0.1.1 | **Fail** | Same: the write succeeded and the user confirmed no prompt appeared |
+| Guard hook in auto mode, version 0.1.2 | Pass | The write was blocked with the "orchestra guard:" reason |
+| Guard hook in accept-edits mode, version 0.1.2 | Pass | A fresh session using the installed copy: the secrets-file write was blocked with the "orchestra guard:" reason |
+| Guard hook leaves ordinary files alone | Pass | In the same session a control file was written with no block, then removed |
+
+## Defects found by the live tests and fixed
+
+| Defect | Fix |
+|---|---|
+| A hook's "ask" never reaches the user in auto or accept-edits mode, so the guard protected nothing there | 0.1.2 blocks secrets files and credential-like content in every mode; protected paths ask only in default and plan modes and are blocked elsewhere |
+| The guard located the project only from the session directory | It now uses the target file's path first |
+| The installed plugin is a cached snapshot; edits under an unchanged version number did not reach new sessions | Version bumped for each installed change (0.1.1, 0.1.2); recorded as lesson L-002 |
+
 ## Not run or not verified
 
 | Item | Why | Risk |
 |---|---|---|
-| Loading the plugin in a live Claude Code session | The headless run failed with an expired CLI sign-in | Skill discovery under `/orchestra:*`, `${CLAUDE_PLUGIN_ROOT}` substitution in skill text, and the hook firing are unconfirmed in practice |
-| Orchestra skills invoked as slash commands | Same | The sample was produced by following the skill steps by hand |
-| The `orchestra:acceptance-verifier` agent type itself | Plugin not loaded | Its instructions were exercised through a general-purpose agent instead |
-| `implementer` and `product-manager` agents | Not exercised | Instructions only |
+| Guard "ask" prompt for protected paths in default mode | Not run live; unit-tested only | Low: default mode prompts for every write anyway |
+| Guard on a protected path, live | The sample project defines none; unit-tested in all seven modes | Low |
+| `implementer` and `acceptance-verifier` as plugin agent types | Not dispatched live; the verifier's instructions were exercised through a general-purpose agent | Instructions only |
+| `init` and `release` as slash commands | User-invoked only; not run live | Their scripts are covered by tests; the skill text is not |
+| The other seven workflow skills invoked live | Not run | Loaded and listed, not executed |
 | gstack, superpowers and graphify routes | Not exercised | Wired by name; existence checked by the doctor |
 | Security review, release and handover on the sample | Not applicable to a one-function library | Unexercised |
 | gstack upgrade to v1.102.1.0 | Blocked by a permission check in the build session | Manifest pins the installed 1.91.295.0 |
+| Headless `claude -p` runs | The CLI sign-in on the build machine had expired | None for the plugin; CI-style runs are untested |
 | macOS and Linux | No machine | Assumed portable |
-
-## First thing to do next
-
-Sign in to the Claude CLI, then run `claude --plugin-dir C:\app\projects\orchestra` inside `examples/sample-project` and invoke `/orchestra:doctor` and `/orchestra:board`. That closes the first three rows above.

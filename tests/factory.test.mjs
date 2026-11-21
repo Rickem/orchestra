@@ -147,27 +147,26 @@ function guard(input, env = {}) {
   return spawnSync(process.execPath, [path.join(ROOT, 'hooks/scripts/guard.mjs')], { input: typeof input === 'string' ? input : JSON.stringify(input), encoding: 'utf8', env: { ...process.env, ...env } });
 }
 
-test('guard asks on secret files, secret content and protected paths, and stays quiet otherwise', () => {
+test('guard blocks secrets files and secret content in every mode and stays quiet otherwise', () => {
   const dir = project({});
-  const ask = (tool_input) => {
-    const r = guard({ tool_name: 'Write', cwd: dir, tool_input });
+  const run = (tool_input, permission_mode) => {
+    const r = guard({ tool_name: 'Write', cwd: dir, permission_mode, tool_input });
     assert.equal(r.status, 0, r.stderr);
     return r.stdout ? JSON.parse(r.stdout).hookSpecificOutput : null;
   };
-  assert.equal(ask({ file_path: path.join(dir, 'src/app.js'), content: 'console.log(1)' }), null);
-  assert.equal(ask({ file_path: path.join(dir, '.env.example'), content: 'A=' }), null);
+  assert.equal(run({ file_path: path.join(dir, 'src/app.js'), content: 'console.log(1)' }, 'auto'), null);
+  assert.equal(run({ file_path: path.join(dir, '.env.example'), content: 'A=' }, 'auto'), null);
 
-  const a = ask({ file_path: path.join(dir, '.env'), content: 'A=1' });
-  assert.equal(a.permissionDecision, 'ask');
-  assert.match(a.permissionDecisionReason, /secrets file/);
-
-  const b = ask({ file_path: path.join(dir, 'src/config.js'), content: `key = "${FAKE_AWS}"` });
+  for (const mode of [undefined, 'default', 'plan', 'acceptEdits', 'auto', 'bypassPermissions', 'dontAsk']) {
+    const a = run({ file_path: path.join(dir, '.env'), content: 'A=1' }, mode);
+    assert.equal(a.permissionDecision, 'deny', String(mode));
+    assert.match(a.permissionDecisionReason, /secrets file.*tell the user/);
+  }
+  const b = run({ file_path: path.join(dir, 'src/config.js'), content: `key = "${FAKE_AWS}"` }, 'default');
+  assert.equal(b.permissionDecision, 'deny');
   assert.match(b.permissionDecisionReason, /AWS access key id/);
   assert.ok(!b.permissionDecisionReason.includes(FAKE_AWS), 'must not echo the secret');
-
-  assert.match(ask({ file_path: path.join(dir, 'migrations/001/up.sql'), content: 'x' }).permissionDecisionReason, /protected path "migrations\/\*\*"/);
-  assert.match(ask({ file_path: 'infra/main.tf', new_string: 'x' }).permissionDecisionReason, /protected path "infra\/"/);
-  assert.match(ask({ file_path: path.join(dir, 'a.js'), edits: [{ new_string: FAKE_PASSWORD_LINE }] }).permissionDecisionReason, /hard-coded credential/);
+  assert.match(run({ file_path: path.join(dir, 'a.js'), edits: [{ new_string: FAKE_PASSWORD_LINE }] }, 'default').permissionDecisionReason, /hard-coded credential/);
 });
 
 test('guard is inactive outside orchestra projects, when disabled, and fails loudly on bad input', () => {
@@ -183,6 +182,33 @@ test('guard is inactive outside orchestra projects, when disabled, and fails lou
   const bad = guard('not json');
   assert.equal(bad.status, 1);
   assert.match(bad.stderr, /No check was made/);
+});
+
+test('guard asks for protected paths only where a prompt exists, and finds the project from the file path', () => {
+  const dir = project({});
+  const run = (permission_mode, file = path.join(dir, 'migrations/001/up.sql'), cwd = dir) => {
+    const r = guard({ tool_name: 'Write', cwd, permission_mode, tool_input: { file_path: file, content: 'x' } });
+    assert.equal(r.status, 0, r.stderr);
+    return r.stdout ? JSON.parse(r.stdout).hookSpecificOutput : null;
+  };
+  for (const mode of [undefined, 'default', 'plan']) {
+    const out = run(mode);
+    assert.equal(out.permissionDecision, 'ask', String(mode));
+    assert.match(out.permissionDecisionReason, /protected path "migrations\/\*\*"/);
+  }
+  for (const mode of ['acceptEdits', 'auto', 'bypassPermissions', 'dontAsk']) {
+    const out = run(mode);
+    assert.equal(out.permissionDecision, 'deny', mode);
+    assert.match(out.permissionDecisionReason, /default permission mode/);
+  }
+  assert.match(run('default', 'infra/main.tf').permissionDecisionReason, /protected path "infra\/"/);
+  // Session directory outside the project: the target file still decides.
+  assert.equal(run('auto', path.join(dir, 'migrations/x.sql'), tmp()).permissionDecision, 'deny');
+
+  fs.writeFileSync(path.join(dir, '.orchestra/project.json'), JSON.stringify({ protectedPaths: ['migrations/**'], hooks: { unattended: 'ask' } }));
+  assert.equal(run('auto').permissionDecision, 'ask');
+  // The opt-out never applies to secrets.
+  assert.equal(run('auto', path.join(dir, '.env')).permissionDecision, 'deny');
 });
 
 test('doctor reports missing upstreams as warnings and a missing project config as a failure', () => {
