@@ -20,8 +20,8 @@ Not every task needs every agent. The tier decides.
 | `/orchestra:architecture` | Approved requirements | `SYSTEM_ARCHITECTURE.md`, ADRs, `stack` | Yes |
 | `/orchestra:sprint-planning` | Approved architecture | Task files, sprint file | Yes |
 | `/orchestra:feature-implementation` | One task | Code, tests, status `implemented-unverified` | Plan confirmation on standard and full tiers |
-| `/orchestra:testing` | Task or diff | Verification log, status `in-review` or `verified` | No |
-| `/orchestra:code-review` | The diff | Findings in `REVIEW_LOG.md` | To waive a Critical or High finding |
+| `/orchestra:testing` | Task or diff | Verification log, status `in-review` | No |
+| `/orchestra:code-review` | The diff | Findings in `REVIEW_LOG.md`; on a pass, status `verified` (through the acceptance verifier on standard and full tiers) | To waive a Critical or High finding |
 | `/orchestra:security-review` | The diff | Findings with scope and limits | Same |
 | `/orchestra:release` | Accepted tasks | Checklist, release notes | Yes, before any push or deploy |
 | `/orchestra:project-handover` | The project | `HANDOVER.md` | No |

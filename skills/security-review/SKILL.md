@@ -16,7 +16,7 @@ Read `${CLAUDE_PLUGIN_ROOT}/standards/severity.md`, `${CLAUDE_PLUGIN_ROOT}/stand
 
 1. **Attack surface.** List what the change exposes: new endpoints, inputs, file paths, queries, permissions, dependencies, config.
 2. **Dispatch one reviewer.** Send the diff and the attack-surface list to the `ecc:security-reviewer` agent. Fallback when ECC is missing: the built-in `/security-review`.
-3. **Check each area that applies:** authorization on every new path (server-side and at the data layer), input validation and output encoding, secrets and config, sensitive data in logs and errors, tenant isolation, file upload and download rules, new or updated dependencies.
+3. **Check each area that applies:** authorization on every new path (server-side and at the data layer), input validation and output encoding, secrets and config, sensitive data in logs and errors, tenant isolation, file upload and download rules, new or updated dependencies. For an area that does not apply, say so in one line with the reason.
 4. **Controls and tests.** Confirm there is a test for each authorization rule and each validation rule the change adds.
 5. **Classify.** Severity plus confirmed or potential. A confirmed finding has a concrete path from input to impact.
 6. **Log.** Append a block to `docs/quality/REVIEW_LOG.md` with scope and limits.

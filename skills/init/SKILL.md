@@ -16,8 +16,8 @@ The script never overwrites an existing file and never reads `.env` values. It r
 
    `node "${CLAUDE_PLUGIN_ROOT}/scripts/init-project.mjs" --target . --dry-run`
 
-   Show the user what was detected (stack, package manager, test and lint commands) and the list of files it would create or skip.
-2. **Ask.** One question at a time:
+   Show the user what was detected (stack, package manager, test and lint commands) and the list of files it would create or skip. Add `--claude-md` to the dry run to preview the `CLAUDE.md` change as well.
+2. **Ask.** One question at a time, skipping anything the user's brief already answers:
    - Is the detected stack right? For a new project: language, framework, database, auth, hosting, and UI framework, component library and styling. Nothing is imposed; unknown stays `null`.
    - Which document groups to install: `product`, `architecture`, `development`, `quality`, `operations` (default all; a small project may take fewer).
    - Add the orchestra block to `CLAUDE.md`? (Appends between markers; existing content is untouched.)
@@ -27,7 +27,7 @@ The script never overwrites an existing file and never reads `.env` values. It r
 
    `node "${CLAUDE_PLUGIN_ROOT}/scripts/init-project.mjs" --target . --components product,architecture,development,quality,operations --claude-md`
 
-4. **Confirm gates.** Open `.orchestra/project.json`. Show the detected gate commands and have the user confirm or correct each. Run each confirmed command once before relying on it: a wrong command can look like a failing test. Write the stack answers into `stack`.
+4. **Confirm gates.** Open `.orchestra/project.json`. Show the detected gate commands and have the user confirm or correct each. Run each confirmed command once before relying on it: a wrong command can look like a failing test, and a command that runs zero tests is not yet a working gate (note that in `TEST_STRATEGY.md`). Write the stack answers into `stack`.
 5. **Validate.** Run `node "${CLAUDE_PLUGIN_ROOT}/scripts/doctor.mjs" --project .` and report any issue.
 6. **Next.** Fill `docs/product/DISCOVERY.md` with `/orchestra:project-discovery`.
 

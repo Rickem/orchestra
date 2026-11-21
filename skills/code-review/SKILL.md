@@ -14,8 +14,8 @@ Read `${CLAUDE_PLUGIN_ROOT}/standards/severity.md` and `${CLAUDE_PLUGIN_ROOT}/st
 
 ## Steps
 
-1. **Get the diff.** `git diff <base>...HEAD` or `git diff` for uncommitted work. If there is no diff, stop.
-2. **Dispatch one reviewer.** Send the diff and the task's acceptance criteria to the `ecc:code-reviewer` agent, in a fresh context without the implementer's explanation. If a language-specific ECC reviewer matches the stack (for example `ecc:typescript-reviewer`, `ecc:python-reviewer`), use it together with the general one for the same pass. Fallback when ECC is missing: the built-in `/code-review`.
+1. **Get the diff.** `git diff <base>...HEAD` or `git diff` for uncommitted work. If there is no diff, stop. Review code, tests and configuration; leave task files and the review log out of it.
+2. **Dispatch one reviewer.** Send the diff and the task's acceptance criteria to the `ecc:code-reviewer` agent, in a fresh context without the implementer's explanation. Ask for line numbers of the source file, not of the diff, and check any cited line before logging it. If a language-specific ECC reviewer matches the stack (for example `ecc:typescript-reviewer`, `ecc:python-reviewer`), use it together with the general one for the same pass. Fallback when ECC is missing: the built-in `/code-review`.
    Do not also run gstack `/review` on the same diff; one owner per review.
 3. **Check scope.** Flag any changed file outside the task's `files` list and any behaviour the task did not ask for.
 4. **Classify.** Give each finding a severity and mark it confirmed or potential. Drop style nits a linter would catch.
@@ -33,3 +33,9 @@ Then one line: `Result: pass | blocked (N Critical, N High)`.
 ## Gate
 
 Any open Critical or High finding blocks the task. Only the user can waive one; record the waiver and reason in the review log.
+
+## After a pass
+
+1. If the task needs a security review (see the lifecycle standard) and none is logged for this change, run `/orchestra:security-review` first.
+2. `light` tier: set the task to `verified` and add a verification-log line naming the review.
+3. `standard` and `full` tiers: dispatch `orchestra:acceptance-verifier` with the task path. It rechecks every criterion itself and sets `verified`.

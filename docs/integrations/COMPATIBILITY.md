@@ -33,6 +33,7 @@ Orchestra's scripts need Node.js 18 or newer and have no dependencies.
 | Vercel plugin session hook | In an empty folder it says to skip exploration and start building | Start new projects with `/orchestra:init` and `/orchestra:project-discovery` explicitly |
 | Built-in `/code-review`, `/security-review` | Same short names | Use the `/orchestra:` prefix for the gated versions |
 | gstack on Windows | Upstream documents Windows 11; copies instead of symlinks without Developer Mode | Rerun `./setup` after each `git pull`; browser QA is unverified on Windows 10 |
+| Local-directory marketplace | With the plugin installed from a local folder, skills received paths into that source folder, while `installed_plugins.json` points at a cached snapshot | Bump the version and run `claude plugin update` after every change so the two cannot drift |
 | graphify CLI | A second, older `graphify` (0.9.7, installed with `uv tool`) is first on PATH on the build machine | Use `python -m graphify`, or upgrade the `uv` copy; running the old CLI's `install` downgrades the skill |
 
 ## Limits of this document

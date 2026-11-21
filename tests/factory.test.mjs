@@ -116,6 +116,7 @@ test('init creates files, preserves existing ones and is idempotent', () => {
   assert.ok(claude.startsWith('# Existing rules\n') && claude.includes('<!-- orchestra:start -->'));
   const config = JSON.parse(fs.readFileSync(path.join(dir, '.orchestra/project.json'), 'utf8'));
   assert.equal(config.gates.test.required, true);
+  assert.equal(config.orchestra, JSON.parse(fs.readFileSync(path.join(ROOT, '.claude-plugin/plugin.json'), 'utf8')).version);
   assert.ok(!fs.readFileSync(path.join(dir, 'docs/product/DISCOVERY.md'), 'utf8').includes('{{'));
 
   const second = init({ target: dir, claudeMd: true });

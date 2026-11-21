@@ -13,8 +13,8 @@ Read `${CLAUDE_PLUGIN_ROOT}/standards/principles.md` and `${CLAUDE_PLUGIN_ROOT}/
 
 ## Steps
 
-1. **Gather from sources, not memory.** Features and status from task files (`node "${CLAUDE_PLUGIN_ROOT}/scripts/board.mjs" --project . --check` prints the counts); architecture from `SYSTEM_ARCHITECTURE.md` and ADRs; commands from the manifest and `gates`.
-2. **Verify setup.** Run the documented install, test and build commands. Mark each as ran (result) or not run (why).
+1. **Gather from sources, not memory.** Features and status from task files (`node "${CLAUDE_PLUGIN_ROOT}/scripts/board.mjs" --project . --check` prints the counts); put them in the Features section; architecture from `SYSTEM_ARCHITECTURE.md` and ADRs; commands from the manifest and `gates`.
+2. **Verify setup.** Run the documented install, test and build commands that exist for this project. Mark each as ran (result) or not run (why).
 3. **Environment variables.** List names and purpose only, from `.env.example` or config. Never read or print values.
 4. **Honest status.** List separately: accepted, verified but not accepted, implemented but unverified, not started. List open findings and defects.
 5. **Map (optional).** For a large codebase with `integrations.graphify` true, refresh the graph with `/graphify --update` and link its report.

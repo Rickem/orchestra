@@ -28,4 +28,4 @@ Read `${CLAUDE_PLUGIN_ROOT}/standards/principles.md` and `${CLAUDE_PLUGIN_ROOT}/
 
 ## Gate
 
-Requirements stay `draft` until the user approves them. Record who approved and the date in the Status line. Do not start architecture on draft requirements.
+Requirements stay `draft` until the user approves them. The Status line reads exactly `Status: draft` or `Status: approved (name, date)`. Use the same question numbers in `PRD.md` and `REQUIREMENTS.md`. Do not start architecture on draft requirements.

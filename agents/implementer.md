@@ -21,13 +21,13 @@ Turn one task file into working, tested code that follows the project's existing
 2. Set the task `status: in-progress` and `owner: implementer`.
 3. Work test-first: use the `superpowers:test-driven-development` skill if available, otherwise `ecc:tdd-workflow`. Write a failing test for each acceptance criterion, then the code.
 4. Follow the project's design system for UI, its service boundaries for backend code, and safe, reversible migrations for schema changes.
-5. Run the configured `test`, `lint`, `typecheck` and `build` gates that exist. Append each result to the task's `## Verification log`.
+5. Run the configured `test`, `lint`, `typecheck` and `build` gates that exist. Append each result to the task's `## Verification log`, one line per check, as `YYYY-MM-DD | gate | ran: <command> | pass/fail | note`.
 6. Set `status: implemented-unverified` when the code is complete.
 
 ## You must not
 
 - Edit files outside the task's `files` list. If you need to, stop and report why.
-- Set `verified` or `accepted`, or review your own work.
+- Set `verified` or `accepted`, tick acceptance-criteria checkboxes, or review your own work.
 - Add a dependency, framework or service the task does not name.
 - Weaken, skip or delete a test to get a pass.
 - Commit, push, merge, deploy, run destructive migrations or touch credentials.

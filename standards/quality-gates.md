@@ -37,10 +37,12 @@ A task is done when every applicable item holds:
 | `blocked` | Cannot proceed; reason recorded | Anyone |
 | `implemented-unverified` | Code written; gates not yet run | Implementer |
 | `in-review` | Gates passed; review under way | Tester |
-| `verified` | Review clean and acceptance criteria independently confirmed | Acceptance verifier |
+| `verified` | Review clean and acceptance criteria independently confirmed | Acceptance verifier (standard, full); the review step (light) |
 | `accepted` | The user accepted it | User only |
 
 The implementer never sets `verified` or `accepted` on their own work.
+
+Order: command gates, then review, then acceptance. `verified` is never set while a required review is still pending. A test command that runs zero tests does not pass the `test` gate.
 
 ## Verification log
 

@@ -14,7 +14,7 @@ Read `${CLAUDE_PLUGIN_ROOT}/standards/principles.md` and `${CLAUDE_PLUGIN_ROOT}/
 
 ## Steps
 
-1. **Inspect.** Read the README, docs, manifests, CI config, git log (last 20 commits) and directory layout. Note the stack, commands and conventions actually in use.
+1. **Inspect.** Read the README, docs, manifests, CI config, git log (last 20 commits, if there are any) and directory layout. Note the stack, commands and conventions actually in use.
 2. **Map (optional).** For a large or unfamiliar codebase, and only if `integrations.graphify` is true or the user agrees, run `/graphify` and use its report. Say that it costs tokens. Skip for new or small projects.
 3. **Clarify.** Ask the user, one question at a time, for anything not in the repo: problem, users, goals, constraints, deadline. For a new product idea, offer gstack `/office-hours` to pressure-test it; if gstack is missing, ask the questions yourself.
 4. **Record.** Write or update `docs/product/DISCOVERY.md` from the DISCOVERY template. Separate what was *detected*, what the user *stated* and what is *assumed*.

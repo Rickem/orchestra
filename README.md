@@ -2,7 +2,7 @@
 
 A reusable software factory for Claude Code. It gives every project the same lifecycle, task tracking, quality gates and approval points, and it orchestrates tools you already have (ECC, gstack, superpowers, optionally graphify) instead of duplicating them.
 
-Version 0.1.2. Licence: MIT. Read [FACTORY_GUIDE.md](FACTORY_GUIDE.md) for day-to-day use.
+Version 0.1.3. Licence: MIT. Read [FACTORY_GUIDE.md](FACTORY_GUIDE.md) for day-to-day use.
 
 ## What you get
 

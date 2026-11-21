@@ -27,3 +27,25 @@ test('AC5 rejects non-strings and returns "" when nothing usable remains', () =>
   assert.equal(slugify('!!!'), '');
   assert.equal(slugify(''), '');
 });
+
+test('T-003 AC1 rejects a maxLength that is not a non-negative integer', () => {
+  for (const maxLength of [-1, 1.5, NaN, '5', Infinity]) {
+    assert.throws(() => slugify('abc', { maxLength }), RangeError);
+  }
+});
+
+test('T-003 AC2 treats null options like no options', () => {
+  assert.equal(slugify('x', null), slugify('x'));
+});
+
+test('T-003 AC3 transliterates letters that do not decompose', () => {
+  assert.equal(slugify('Straße'), 'strasse');
+  assert.equal(slugify('Æther'), 'aether');
+  assert.equal(slugify('Łódź'), 'lodz');
+  assert.equal(slugify('Ørsted'), 'orsted');
+});
+
+test('T-003 AC4 covers maxLength 0 and a default-length cut on a hyphen', () => {
+  assert.equal(slugify('abc', { maxLength: 0 }), '');
+  assert.equal(slugify('a'.repeat(59) + ' b'), 'a'.repeat(59));
+});

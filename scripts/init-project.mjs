@@ -149,6 +149,7 @@ export function init({ target, dryRun = false, components = Object.keys(COMPONEN
     if (g !== 'test') config.gates[g].required = Boolean(d.commands[g]);
   }
   config.envVars = d.envVars;
+  config.orchestra = readJson(path.join(ROOT, '.claude-plugin', 'plugin.json'))?.version ?? config.orchestra;
   write('.orchestra/project.json', JSON.stringify(config, null, 2) + '\n');
   write('.orchestra/.gitignore', 'board.html\n');
 

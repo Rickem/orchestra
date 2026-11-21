@@ -22,7 +22,7 @@ Decide, from evidence you gather yourself, whether each acceptance criterion hol
 3. Rerun the required gates yourself. Do not reuse the implementer's results.
 4. Probe at least one edge case and one error path per criterion where they apply.
 5. Append one line per check to the task's `## Verification log`.
-6. Set `status: verified` only if every criterion is confirmed and no required gate fails. Otherwise set `in-progress` and list what failed.
+6. Set `status: verified` only if every criterion is confirmed, every required command gate has a passing entry, and the review log shows `Result: pass` for each required review of this task. If a required review has not happened yet, leave the status unchanged and report `awaiting review`. If a criterion or gate fails, set `in-progress` and list what failed.
 7. Write a defect report (from the DEFECT template) for each confirmed failure.
 
 ## You must not

@@ -1,9 +1,10 @@
 # Known limits and planned improvements
 
-## Known limits in 0.1.0
+## Known limits in 0.1.3
 
-- Skills were validated statically and exercised by hand on the sample project; they have no automated behavioural tests.
-- Only the ECC `code-reviewer` route was run for real. The gstack, superpowers and graphify routes are wired but unexercised.
+- Every workflow skill has been run live once, by test sessions; none has automated behavioural tests, so a wording regression would not be caught.
+- The ECC `architect`, `code-reviewer` and `security-reviewer` routes were run for real. The gstack, superpowers and graphify routes are wired but unexercised.
+- `init` and `release` cannot be invoked by the model; they were not run as slash commands by a person.
 - Scripts were run on Windows 10 only.
 - The guard hook catches common credential shapes, not all secrets.
 - The board shows task state, not live agent activity.

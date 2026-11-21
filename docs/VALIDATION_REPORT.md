@@ -6,7 +6,7 @@ Date: 2026-11-21. Machine: Windows 10, Node.js 22.17.1, Claude Code 2.1.283. Eve
 
 | Check | Command | Result |
 |---|---|---|
-| Unit and integration tests | `node --test tests/factory.test.mjs` | 17 passed, 0 failed |
+| Unit and integration tests | `node --test tests/factory.test.mjs` | 17 passed, 0 failed (rerun on 0.1.3) |
 | Static factory validation | `node scripts/validate-factory.mjs` | 11 of 11 checks passed |
 | Marketplace manifest | `claude plugin validate .` | Passed |
 | Plugin manifest | `claude plugin validate .claude-plugin/plugin.json` | Passed |
@@ -50,6 +50,25 @@ Installed with `claude plugin marketplace add` and `claude plugin install orches
 | Guard hook in accept-edits mode, version 0.1.2 | Pass | A fresh session using the installed copy: the secrets-file write was blocked with the "orchestra guard:" reason |
 | Guard hook leaves ordinary files alone | Pass | In the same session a control file was written with no block, then removed |
 
+## Live workflow tests (version 0.1.2, fixes released as 0.1.3)
+
+Two further desktop-app sessions ran every remaining workflow. Their results were checked against the files afterwards.
+
+| Skill or agent | Result | Evidence |
+|---|---|---|
+| `init` | Refused by the Skill tool, as designed (user-invoked only); steps followed by hand | Dry run, apply and doctor ran on a throwaway project: 10 ok, 0 fail |
+| `project-discovery` | Pass | Produced `DISCOVERY.md` |
+| `requirements` with `orchestra:product-manager` | Pass | 8 functional and 6 non-functional requirements, 5 business rules, security table answered; no decisions invented |
+| `architecture` with `ecc:architect` | Pass | Architecture document and 5 ADRs; the agent is read-only, so the session wrote the files |
+| `sprint-planning` | Pass | 4 task files and a sprint file; board check clean; doctor clean |
+| `feature-implementation` with `orchestra:implementer` | Pass | Stayed inside the two owned files; 3 new tests failed first, then passed; left status at `implemented-unverified` |
+| `testing` with `orchestra:acceptance-verifier` | Pass, with an ordering defect | Source and test file hashes unchanged by the verifier; it set `verified` before the reviews had run |
+| `code-review` with `ecc:code-reviewer` | Pass | 2 Low, 1 Informational; logged |
+| `security-review` with `ecc:security-reviewer` | Pass | 1 Low, 1 Informational; scope and limits stated |
+| `project-handover` | Pass | `HANDOVER.md` produced for the sample |
+| `release` | Refused by the Skill tool, as designed | No release was performed |
+| Sample project after the run | Pass | `npm test`: 9 passed; board: T-001 and T-003 `verified`, T-002 `not-started` |
+
 ## Defects found by the live tests and fixed
 
 | Defect | Fix |
@@ -57,6 +76,12 @@ Installed with `claude plugin marketplace add` and `claude plugin install orches
 | A hook's "ask" never reaches the user in auto or accept-edits mode, so the guard protected nothing there | 0.1.2 blocks secrets files and credential-like content in every mode; protected paths ask only in default and plan modes and are blocked elsewhere |
 | The guard located the project only from the session directory | It now uses the target file's path first |
 | The installed plugin is a cached snapshot; edits under an unchanged version number did not reach new sessions | Version bumped for each installed change (0.1.1, 0.1.2); recorded as lesson L-002 |
+| `verified` could be set before a required review had run (`testing` dispatched the verifier ahead of `code-review`) | 0.1.3: order is gates, review, acceptance; the verifier reports `awaiting review` instead |
+| A test command running zero tests counted as a passing gate | 0.1.3: zero tests is a fail for the `test` gate |
+| `architecture` implied the read-only ECC architect would write files | 0.1.3: the skill says the session writes them |
+| `init` wrote factory version 0.1.0 into `project.json` regardless of the installed version | 0.1.3: reads it from the plugin manifest; covered by a test |
+| Implementer log lines were free text and it ticked acceptance checkboxes | 0.1.3: format stated; ticking left to the verifier |
+| About a dozen smaller ambiguities in skill text (approval wording, question numbering, diff scope, not-applicable areas, missing folders, empty git log) | 0.1.3: each clarified in the skill concerned |
 
 ## Not run or not verified
 
@@ -64,11 +89,10 @@ Installed with `claude plugin marketplace add` and `claude plugin install orches
 |---|---|---|
 | Guard "ask" prompt for protected paths in default mode | Not run live; unit-tested only | Low: default mode prompts for every write anyway |
 | Guard on a protected path, live | The sample project defines none; unit-tested in all seven modes | Low |
-| `implementer` and `acceptance-verifier` as plugin agent types | Not dispatched live; the verifier's instructions were exercised through a general-purpose agent | Instructions only |
-| `init` and `release` as slash commands | User-invoked only; not run live | Their scripts are covered by tests; the skill text is not |
-| The other seven workflow skills invoked live | Not run | Loaded and listed, not executed |
+| `init` and `release` typed as slash commands by a person | The model cannot invoke them; no person has run them yet | Their scripts and steps were exercised by hand; the slash-command entry point was not |
+| The 0.1.3 text fixes themselves | Applied after the live runs; not rerun live | Wording changes only, plus one tested script change |
+| A release on a real project | No project is at that stage | The `release` checklist is unexercised |
 | gstack, superpowers and graphify routes | Not exercised | Wired by name; existence checked by the doctor |
-| Security review, release and handover on the sample | Not applicable to a one-function library | Unexercised |
 | gstack upgrade to v1.102.1.0 | Blocked by a permission check in the build session | Manifest pins the installed 1.91.295.0 |
 | Headless `claude -p` runs | The CLI sign-in on the build machine had expired | None for the plugin; CI-style runs are untested |
 | macOS and Linux | No machine | Assumed portable |

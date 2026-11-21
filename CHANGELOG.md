@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.3 — 2026-11-21
+
+Fixes from running every workflow live in two test sessions.
+
+- Status order made consistent: command gates, then review, then acceptance. `testing` now ends at `in-review`; `code-review` ends by setting `verified` (light tier) or dispatching the acceptance verifier (standard, full). The verifier no longer sets `verified` while a required review is pending.
+- A test command that runs zero tests no longer counts as a passing gate.
+- `implementer`: verification-log line format stated; it no longer ticks acceptance checkboxes.
+- `architecture`: states that the ECC architect is read-only and the main session writes the files; handles a stack already fixed by the brief; undecided choices keep an ADR `proposed`.
+- `requirements` and `product-manager`: exact Status line wording; one numbering for open questions.
+- `code-review`: task files and the review log are left out of the diff; cited line numbers are checked.
+- `init`: writes the current factory version into `project.json`; skips questions the brief answers; dry run can preview the `CLAUDE.md` change.
+- Smaller clarifications in `security-review`, `project-handover`, `sprint-planning` and `project-discovery`.
+- Sample project: T-003 implemented, reviewed and verified through the live workflows.
+
 ## 0.1.2 — 2026-11-21
 
 - Guard hook: secrets files and credential-like content are now blocked in every permission mode. A second live test showed a hook "ask" is also resolved without a prompt in accept-edits mode.
