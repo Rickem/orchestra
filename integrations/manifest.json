@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "factoryVersion": "0.1.5",
+  "factoryVersion": "0.2.0",
   "lastCompatibilityCheck": "2026-11-21",
   "claudeCode": { "testedVersion": "2.1.283", "requiredFeatures": ["plugins", "skills", "subagents", "PreToolUse hooks"] },
   "upstreams": [
@@ -45,7 +45,8 @@
         { "kind": "skill", "name": "office-hours", "usedBy": ["project-discovery"] },
         { "kind": "skill", "name": "plan-ceo-review", "usedBy": ["requirements"] },
         { "kind": "skill", "name": "plan-eng-review", "usedBy": ["architecture"] },
-        { "kind": "skill", "name": "plan-design-review", "usedBy": ["architecture"] },
+        { "kind": "skill", "name": "plan-design-review", "usedBy": ["ui-design"] },
+        { "kind": "skill", "name": "design-review", "usedBy": ["ui-design"] },
         { "kind": "skill", "name": "qa-only", "usedBy": ["testing"] },
         { "kind": "skill", "name": "ship", "usedBy": ["release"] },
         { "kind": "skill", "name": "land-and-deploy", "usedBy": ["release"] }
@@ -55,7 +56,8 @@
         ,"Its skills append their own report sections to reviewed documents, keep logs and a cross-project profile in ~/.gstack, and /ship has no approval stop of its own.",
         "Upgraded from 1.91.295.0 to 1.102.1.0 on 2026-11-21. The live route tests ran on 1.91.295.0 and were not repeated on 1.102.1.0; only the presence of the routed skills was rechecked.",
         "On Windows without Developer Mode, rerun ./setup after every git pull.",
-        "Requires Bun and Node.js on PATH for browser skills."
+        "Requires Bun and Node.js on PATH for browser skills.",
+        "/plan-design-review and /design-review run only on the user's request, under the limits in the ui-design skill. /design-review stops on an uncommitted tree and has fix-and-commit phases; its audit-only use is untested."
       ]
     },
     {

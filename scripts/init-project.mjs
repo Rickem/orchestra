@@ -30,6 +30,7 @@ export const COMPONENTS = {
 export const ON_DEMAND = [
   'architecture/ADR.md', 'development/TASK.md', 'development/SPRINT.md', 'development/PROGRESS_REPORT.md',
   'quality/DEFECT.md', 'operations/HANDOVER.md', 'governance/LESSON.md', 'project/CLAUDE.block.md', 'project/project.json',
+  'design/DESIGN.md', 'design/SCREENS.md',
 ];
 
 const exists = (dir, f) => fs.existsSync(path.join(dir, f));

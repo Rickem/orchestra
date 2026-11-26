@@ -1,7 +1,9 @@
 # Known limits and planned improvements
 
-## Known limits in 0.1.5
+## Known limits in 0.2.0
 
+- `/orchestra:ui-design`: `direct` was dry-run on briefs; `build` and `review` have not been run with real screenshots on a project. Native iOS, native Android and React Native get only its platform-neutral rules.
+- `init` does not detect Flutter (`pubspec.yaml`); `stack.ui` stays empty and the UI design skill detects it itself.
 - Every workflow skill has been run live once, by test sessions; none has automated behavioural tests, so a wording regression would not be caught.
 - Every selected upstream route has been run live once except gstack `/land-and-deploy` (no deploy target) and `/ship` beyond its first gate (no remote). The gstack reviews were run without a live user, so their interactive flow is untested.
 - The gstack route tests ran on 1.91.295.0; gstack has since been upgraded to 1.102.1.0 and the routes were not rerun on it.

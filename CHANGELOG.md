@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0 — 2026-11-26
+
+- New skill `/orchestra:ui-design` with three modes: `direct` (direction, tokens, components, interactions and screen states before code), `build` (design discipline during a UI task) and `review` (evidence-based review of the rendered result; reports only). Covers websites, web apps and Flutter. Ten reference files, no scripts, no runtime dependency on any source skill.
+- Routing: UI design is owned by the new skill. gstack `/plan-design-review` and `/design-review` run only on the user's request; `/design-review` is now pinned in the manifest. Reasons in ADR-0003.
+- New rule, standard and full tiers: a task that touches UI needs an approved `docs/design/DESIGN.md` before it is planned and a passing `/orchestra:ui-design review` after code review. No new key in `project.json`. The light tier is unchanged.
+- Two on-demand templates: `design/DESIGN.md`, `design/SCREENS.md`.
+- `architecture`, `sprint-planning`, `feature-implementation`, `code-review`, the `implementer` agent and the severity, lifecycle and quality-gates standards point at the new skill.
+- Migration: an existing project on the standard or full tier runs `/orchestra:ui-design direct` once to create `docs/design/` before planning further UI tasks.
+- Not tested: `build` and `review` with real screenshots on a project; the constrained use of the two gstack design skills. `init` still does not detect Flutter; the skill reads `pubspec.yaml` itself.
+
 ## 0.1.5 — 2026-11-21
 
 - Manifest: gstack pinned at 1.102.1.0 (upgraded from 1.91.295.0). The gstack route tests predate the upgrade and were not rerun.

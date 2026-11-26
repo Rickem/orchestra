@@ -14,6 +14,8 @@ Gates are configured per project in `.orchestra/project.json` under `gates`. Eac
 | `securityReview` | `/orchestra:security-review` | required for sensitive changes (see `lifecycle.md`) |
 | `acceptance` | `acceptance-verifier` agent | required for standard and full tiers |
 
+Design review (`/orchestra:ui-design review`) is required by rule, with no key in `project.json`, for tasks that touch UI on the standard and full tiers (see `lifecycle.md`).
+
 A required gate is never skipped silently. To waive one, the user says so and the waiver is written to the task's verification log with a reason.
 
 ## Definition of done
@@ -24,7 +26,7 @@ A task is done when every applicable item holds:
 - The change follows the project's architecture and conventions.
 - Required gates ran and passed; results are in the verification log.
 - Input validation, error handling, authorization and data access were considered.
-- Accessibility and responsive behaviour were checked for UI changes.
+- UI changes follow `docs/design/DESIGN.md`; accessibility and responsive behaviour were checked, by `/orchestra:ui-design review` where the tier requires it.
 - No open Critical or High finding.
 - Affected documentation is updated.
 
@@ -42,7 +44,7 @@ A task is done when every applicable item holds:
 
 The implementer never sets `verified` or `accepted` on their own work.
 
-Order: command gates, then review, then acceptance. `verified` is never set while a required review is still pending. A test command that runs zero tests does not pass the `test` gate.
+Order: command gates, then review (code review, security review if needed, design review for UI tasks), then acceptance. `verified` is never set while a required review is still pending. A test command that runs zero tests does not pass the `test` gate.
 
 ## Verification log
 

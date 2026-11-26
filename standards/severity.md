@@ -13,3 +13,4 @@ Rules:
 - Mark each finding **confirmed** (reproduced or proven from code) or **potential** (plausible, not proven).
 - A review states its scope and limits. A limited review is never called a complete audit.
 - Findings go in `docs/quality/REVIEW_LOG.md` using the one-line format in `concise-output.md`.
+- Design findings use the same levels, mapped in `${CLAUDE_PLUGIN_ROOT}/skills/ui-design/references/review.md`. A taste finding is Medium at most unless it contradicts the approved design.

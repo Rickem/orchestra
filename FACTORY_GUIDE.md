@@ -8,7 +8,7 @@
 | A feature | standard | `requirements` (for that feature) → `sprint-planning` → per task: `feature-implementation` → `testing` → `code-review` |
 | New project, or anything touching auth, payments, personal data, migrations or infrastructure | full | Every stage in [`standards/lifecycle.md`](standards/lifecycle.md), plus `security-review` |
 
-Not every task needs every agent. The tier decides.
+Not every task needs every agent. The tier decides. On the standard and full tiers a task that touches UI adds `ui-design review` after `code-review`.
 
 ## The workflows
 
@@ -18,10 +18,11 @@ Not every task needs every agent. The tier decides.
 | `/orchestra:project-discovery` | Repo, your brief | `docs/product/DISCOVERY.md` | Yes, before requirements |
 | `/orchestra:requirements` | Accepted discovery | `PRD.md`, `REQUIREMENTS.md` | Yes |
 | `/orchestra:architecture` | Approved requirements | `SYSTEM_ARCHITECTURE.md`, ADRs, `stack` | Yes |
+| `/orchestra:ui-design` | A brief (`direct`), a UI task (`build`) or rendered UI (`review`) | `docs/design/DESIGN.md`, `SCREENS.md`; design findings in `REVIEW_LOG.md` | Yes, on the direction; to waive a Critical or High finding |
 | `/orchestra:sprint-planning` | Approved architecture | Task files, sprint file | Yes |
 | `/orchestra:feature-implementation` | One task | Code, tests, status `implemented-unverified` | Plan confirmation on standard and full tiers |
 | `/orchestra:testing` | Task or diff | Verification log, status `in-review` | No |
-| `/orchestra:code-review` | The diff | Findings in `REVIEW_LOG.md`; on a pass, status `verified` (through the acceptance verifier on standard and full tiers) | To waive a Critical or High finding |
+| `/orchestra:code-review` | The diff | Findings in `REVIEW_LOG.md`; on a pass, status `verified` (through the acceptance verifier on standard and full tiers, after the design review for UI tasks) | To waive a Critical or High finding |
 | `/orchestra:security-review` | The diff | Findings with scope and limits | Same |
 | `/orchestra:release` | Accepted tasks | Checklist, release notes | Yes, before any push or deploy |
 | `/orchestra:project-handover` | The project | `HANDOVER.md` | No |
@@ -52,7 +53,17 @@ Plan first: `sprint-planning` puts tasks with no shared files and no dependency 
 
 ## UI stack and design
 
-Orchestra imposes no framework or library. `init` detects what a project uses (framework, component library, styling) and records it under `stack.ui`; for a new project `/orchestra:architecture` asks you and records the choice as an ADR. Agents follow the project's design system. For design critique, gstack `/plan-design-review` and `/design-review` are the routed owners.
+Orchestra imposes no framework or library. `init` detects what a project uses (framework, component library, styling) and records it under `stack.ui`; for a new project `/orchestra:architecture` asks you and records the choice as an ADR. Agents follow the project's design system.
+
+`/orchestra:ui-design` owns UI design for websites, web apps and Flutter apps. It has three modes:
+
+| Mode | When | What it does |
+|---|---|---|
+| `direct` | After requirements, before UI code | Sets the direction, tokens, components, interactions and screen states; writes `docs/design/DESIGN.md` and `docs/design/SCREENS.md`; stops for your approval |
+| `build` | While a UI task is implemented | Tokens only, every state, a bounded capture round; departures are recorded as exceptions |
+| `review` | After code review passes | Reviews the rendered result against the approved design; reports only; opens with what was and was not verified |
+
+It scales to the work: a small change follows the design file and skips the rest. On the standard and full tiers a UI task needs an approved design file before it is planned and a passing design review before acceptance; the light tier needs neither. It researches references on the web only if you agree, and sends nothing outside the project without approval. gstack `/plan-design-review` and `/design-review` are run only when you ask for them. The reasons are in [ADR-0003](docs/decisions/ADR-0003-own-ui-design.md).
 
 ## Customising safely
 

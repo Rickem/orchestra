@@ -9,7 +9,8 @@ Decision values: **reuse** (called as-is), **wrap** (called inside an orchestra 
 | Product discovery and critique | wrap | gstack `/office-hours`, `/plan-ceo-review` | Discovery report, approval gate | Strongest product questioning of the three |
 | Requirements | custom | `product-manager` agent, `/orchestra:requirements` | IDs, acceptance criteria, security table | No upstream ties requirements to tasks and tests |
 | Architecture design | wrap | ECC `architect` agent | ADR template, approval gate | Read-only specialist agent |
-| Plan critique | reuse | gstack `/plan-eng-review`, `/plan-design-review` | — | Optional second opinion |
+| Plan critique | reuse | gstack `/plan-eng-review` | — | Optional second opinion |
+| UI design direction, build guidance and review | custom | `/orchestra:ui-design` | Design file, state matrix, evidence labels, blocking gate | No upstream covers Flutter or runs report-only; see ADR-0003 |
 | Sprint planning and task files | custom | `/orchestra:sprint-planning` | Task format, file ownership, parallel groups | Needed for the board and gates |
 | Implementation | custom | `implementer` agent | Scope and file-ownership rules | One stack-agnostic agent replaces separate frontend, backend and database agents |
 | Test-first discipline | reuse | superpowers `test-driven-development` | — | Small, strict, stack-agnostic |
@@ -35,7 +36,7 @@ Decision values: **reuse** (called as-is), **wrap** (called inside an orchestra 
 | Upstream | Components |
 |---|---|
 | ECC | Agents `architect`, `code-reviewer`, `security-reviewer`, `database-reviewer`, `e2e-runner`; skills `tdd-workflow`, `verification-loop` (fallbacks) |
-| gstack | `/office-hours`, `/plan-ceo-review`, `/plan-eng-review`, `/plan-design-review`, `/qa-only`, `/ship`, `/land-and-deploy` |
+| gstack | `/office-hours`, `/plan-ceo-review`, `/plan-eng-review`, `/qa-only`, `/ship`, `/land-and-deploy`; on the user's request only: `/plan-design-review`, `/design-review` |
 | superpowers | `test-driven-development`, `systematic-debugging`, `verification-before-completion`, `writing-plans`, `using-git-worktrees`, `dispatching-parallel-agents` |
 | graphify | `/graphify` (optional) |
 

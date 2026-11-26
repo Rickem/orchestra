@@ -37,5 +37,6 @@ Any open Critical or High finding blocks the task. Only the user can waive one; 
 ## After a pass
 
 1. If the task needs a security review (see the lifecycle standard) and none is logged for this change, run `/orchestra:security-review` first.
-2. `light` tier: set the task to `verified` and add a verification-log line naming the review.
-3. `standard` and `full` tiers: dispatch `orchestra:acceptance-verifier` with the task path. It rechecks every criterion itself and sets `verified`.
+2. If the task touches UI and its tier is `standard` or `full`, run `/orchestra:ui-design review` next. It must pass, and it takes over the two steps below.
+3. `light` tier: set the task to `verified` and add a verification-log line naming the review.
+4. `standard` and `full` tiers: dispatch `orchestra:acceptance-verifier` with the task path. It rechecks every criterion itself and sets `verified`.

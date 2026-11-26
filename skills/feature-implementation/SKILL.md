@@ -19,7 +19,7 @@ Read `${CLAUDE_PLUGIN_ROOT}/standards/principles.md`, `${CLAUDE_PLUGIN_ROOT}/sta
 3. **Plan.** Write a short plan under `## Plan` in the task file: steps, tests to add, risks. For `standard` and `full` tiers use `superpowers:writing-plans` if available, but keep the plan in the task file rather than a separate plans folder, and skip that skill's commit steps. Get the user's confirmation before coding.
 4. **Isolate.** If other tasks are running, work in a separate worktree (`superpowers:using-git-worktrees`). Keep the worktree in a git-ignored folder or outside the repository, edit the task file there together with the code, and do not keep files the task does not own (a lockfile from an install, for example). Merging the branch back needs the user's approval.
 5. **Implement.** Either dispatch the `orchestra:implementer` agent with the task path, or do it in the main session following that agent's rules: test-first (`superpowers:test-driven-development` if installed, otherwise `ecc:tdd-workflow`), only the files the task owns, no new dependency the task does not name.
-   - UI work follows the project's design system and `stack.ui`; check accessibility and responsive behaviour.
+   - UI work follows the build steps of `/orchestra:ui-design`, `docs/design/DESIGN.md` and `stack.ui`. If the implementer reports screens as `not captured`, do the capture round here before reporting.
    - Schema work uses reversible migrations; a destructive migration needs the user's approval first.
    - On a failing test or unexpected behaviour, use `superpowers:systematic-debugging` before changing code.
 6. **Check.** Run the configured `test`, `lint`, `typecheck` and `build` gates that have a command. Append each result to `## Verification log`. Never weaken or delete a test to pass.
@@ -32,4 +32,4 @@ Report, 15 lines at most: task and status, changed files, each gate as ran/not r
 
 ## Gate
 
-Next is `/orchestra:testing`, then `/orchestra:code-review`. No commit, push or merge without the user's approval.
+Next is `/orchestra:testing`, then `/orchestra:code-review`, then `/orchestra:ui-design review` for a UI task on the `standard` or `full` tier. No commit, push or merge without the user's approval.

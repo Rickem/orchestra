@@ -2,16 +2,16 @@
 
 A reusable software factory for Claude Code. It gives every project the same lifecycle, task tracking, quality gates and approval points, and it orchestrates tools you already have (ECC, gstack, superpowers, optionally graphify) instead of duplicating them.
 
-Version 0.1.5. Licence: MIT. Read [FACTORY_GUIDE.md](FACTORY_GUIDE.md) for day-to-day use.
+Version 0.2.0. Licence: MIT. Read [FACTORY_GUIDE.md](FACTORY_GUIDE.md) for day-to-day use.
 
 ## What you get
 
 | Part | What it is |
 |---|---|
-| 13 skills | `/orchestra:init`, `project-discovery`, `requirements`, `architecture`, `sprint-planning`, `feature-implementation`, `testing`, `code-review`, `security-review`, `release`, `project-handover`, `board`, `doctor` |
+| 14 skills | `/orchestra:init`, `project-discovery`, `requirements`, `architecture`, `ui-design`, `sprint-planning`, `feature-implementation`, `testing`, `code-review`, `security-review`, `release`, `project-handover`, `board`, `doctor` |
 | 3 agents | `implementer`, `acceptance-verifier`, `product-manager` |
 | 8 standards | Principles, concise output, severity, lifecycle, quality gates, parallel work, security and privacy, upstream routing ([`standards/`](standards/)) |
-| 18 templates | Project config and product, architecture, development, quality, operations and governance documents ([`templates/`](templates/)) |
+| 20 templates | Project config and product, architecture, design, development, quality, operations and governance documents ([`templates/`](templates/)) |
 | 1 hook | Asks before writing secrets files, credential-like content or protected paths ([`hooks/README.md`](hooks/README.md)) |
 | 4 scripts | `init-project`, `board`, `doctor`, `validate-factory` (Node.js, no dependencies) |
 | Task board | Read-only HTML board generated from task files |
@@ -53,7 +53,7 @@ The upstreams are recommended, not required. Without one, orchestra uses the fal
 | | |
 |---|---|
 | Reused | ECC review and architecture agents; gstack product critique, browser QA and shipping; superpowers test-first, debugging, verification and worktrees; graphify (optional) |
-| Custom | Init, task format and statuses, quality gates, board, acceptance verifier, implementer, product manager, validation, doctor, integration manifest |
+| Custom | Init, task format and statuses, quality gates, board, acceptance verifier, implementer, product manager, UI design (direction, build guidance, review; web and Flutter), validation, doctor, integration manifest |
 | Excluded | Separate frontend, backend, database and DevOps agents; automatic lesson capture; MCP servers by default; Agent Teams; format and lint hooks |
 
 Reasons are in [`docs/integrations/COMPONENT_MATRIX.md`](docs/integrations/COMPONENT_MATRIX.md).

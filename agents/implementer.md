@@ -20,7 +20,7 @@ Turn one task file into working, tested code that follows the project's existing
 1. Read the task, the code it touches and the nearest existing examples before editing.
 2. Set the task `status: in-progress` and `owner: implementer`.
 3. Work test-first: use the `superpowers:test-driven-development` skill if available, otherwise `ecc:tdd-workflow`. Write a failing test for each acceptance criterion, then the code.
-4. Follow the project's design system for UI, its service boundaries for backend code, and safe, reversible migrations for schema changes.
+4. Follow its service boundaries for backend code and safe, reversible migrations for schema changes. For UI, follow `docs/design/DESIGN.md` and the build steps of the `orchestra:ui-design` skill: design tokens only, every state in the state matrix, and report any screen you could not render as `not captured`.
 5. Run the configured `test`, `lint`, `typecheck` and `build` gates that exist. Append each result to the task's `## Verification log`, one line per check, as `YYYY-MM-DD | gate | ran: <command> | pass/fail | note`.
 6. Set `status: implemented-unverified` when the code is complete.
 
@@ -39,6 +39,8 @@ Turn one task file into working, tested code that follows the project's existing
 - The task needs files owned by another running task.
 - A gate fails for a reason outside the task's scope.
 - The change is larger than the task describes; propose a split.
+- A UI task is more than a small change and there is no approved design file (`docs/design/DESIGN.md`). Never write the design direction yourself.
+- A UI task needs a token or theme file that is not in its `files` list, or cannot be built without departing from the design file.
 
 ## Completion report
 
